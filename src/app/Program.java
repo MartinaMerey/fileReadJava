@@ -42,8 +42,9 @@ public class Program {
         //legolcsóbb fuvar forintban
         System.out.println(legolcsobbFuvarFt(fuvarok));
         //hány kártyás fizu
+        System.out.println(hanyKartyas(fuvarok));
         //minden fizetési mód meghatározott
-        mindenFizModOk(fuvarok);
+        System.out.println(mindenFizModOk(fuvarok));
         //hány darab autó van a rendszerben
         //hányféle fizetési mód van
         //melyik autó összesen mennyi fuvart teljesített
@@ -72,7 +73,7 @@ public class Program {
         return maxRsz;
     }
         
-    public double legolcsobbFuvarFt(List<Fuvar> fuvarok) {
+    public static double legolcsobbFuvarFt(List<Fuvar> fuvarok) {
         double min = fuvarok.get(0).getOsszeg();
 
         for (Fuvar f : fuvarok) {
@@ -84,26 +85,42 @@ public class Program {
     }
 
     //4
-        public int hanyKartyas(ArrayList fuvarok) {
-            int hanyKartya = 0;
-            for (int i = 0; i < fuvarok.size(); i++) {
-                if (!fuvarok.get(i).fm.equals("kartya")){
-                    hanyKartya ++;
-                } 
+    public static int hanyKartyas(List<Fuvar> fuvarok) {
+        int hanyKartya = 0;
+        for (Fuvar f : fuvarok) {
+            if (f.getFizmod().equals("kartya")) {
+                hanyKartya ++;
             }
-            return hanyKartya;
         }
+        return hanyKartya;
+    }
         
-        //5
-        public Set[] mindenFizModOk(ArrayList fuvarok) {
-            Set<String> fizModok = new HashSet<>();
-        for (int i = 0; i< fuvarok.size(); i++){
-            fizModok.push(fuvarok.get(i).fm);
+    //5
+    public static boolean mindenFizModOk(List<Fuvar> fuvarok) {
+        Set<String> fizModok = new HashSet<>();
+        for (Fuvar f : fuvarok) {
+            fizModok.add(f.getFizmod());
         }
-        return fizModok;
+        if (fizModok.contains("-")||fizModok.contains("")||fizModok.contains(" ")){
+            return false;
+        }
+        return true;
+    }
                 
         
         //6
+    /*    public static boolean mindenFizModOk(List<Fuvar> fuvarok) {
+        boolean isMindenOk = true;
+        Set<String> fizModok = new HashSet<>();
+        for (Fuvar f : fuvarok) {
+            fizModok.add(f.getFizmod());
+        }
+        if (fizModok.size()< fuvarok.size()){
+            return !isMindenOk;
+        }
+        return isMindenOk;
+    }
+       */
         //8-as hz segítség
         //kulcs és értékpár (asszociatív tömb PHP-ban)
         //Map<Diak,List<Integer>>map
