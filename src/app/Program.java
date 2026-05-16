@@ -46,8 +46,7 @@ public class Program {
             Fuvar fuvar = new Fuvar(rsz, ido, ossz, fm);
             System.out.println(sor);
     }*/
-        
-        
+
         //összes fuvar értéke
         osszFuvarErteke(fuvarok);
         //legdrágább fuvar rendszáma
@@ -123,10 +122,19 @@ public class Program {
                 
         
         //6
+        //8-as hz segítség
+        //kulcs és értékpár (asszociatív tömb PHP-ban)
+        //Map<Diak,List<Integer>>map
+        // map lehet hashmap, treemap
+        //Map<String,Integer>m
+        //<Integer,Integer>
+        //[1]=
+        //["kulcs"]=ertek
         
-       
+        //8-as 0. szintű belépés volt valaha a programozói állásoknaál
         
-            
+        //-záró vizsga: webes szakdolgozat, elmélet, asztali alkalmas grafikus 3 konzolos valami
+                 
             
             
             
