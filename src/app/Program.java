@@ -1,6 +1,5 @@
 package app;
 
-import app.Fuvar;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,47 +11,36 @@ import java.util.Set;
 
 public class Program {
 
-    private static List<String> sorok;
-    private static List<Fuvar> fuvarok;
     //csak git linket lehet feltölteni, legyenek megadva a kivételek-->git ignore!!!
     public static void main(String[] args) throws IOException {
-        
-        
-        Path path = Path.of("fuvarok.csv");
-        String adatok = Files.readString(path);
-        //elérés lehet realtív vagy abszolút cím
-        System.out.println("Beolvasott tartalom: " + adatok);
-        
-    List<String> fuvaroksorai = Files.readAllLines(path);
-        for (String sor: fuvaroksorai) {
-            System.out.println(sor);}
-    }
     
-    
-    sorok = Files.readAllLines(Path.of("fuvarok.csv"));
-    fuvarok = new ArrayList<>();
-    for (String sor : sorok) {
-        fuvarok.add(new Fuvar(sor));
-    }
-    
-    //tartalom saját típussal
-    /*List<Fuvar> fuvarok = new ArrayList<>();
-         for(String sor : fuvarok) {
-            String[] s = sor.split(";");
-            String rsz = s[0];
-            int ido = Integer.parseInt(s[1]);
-            double ossz = Double.ParseDouble(s[2]);      
-            String fm = s[3];
-            Fuvar fuvar = new Fuvar(rsz, ido, ossz, fm);
-            System.out.println(sor);
-    }*/
+        //Sorok beolvasása
+        List<String> sorok = Files.readAllLines(Path.of("fuvarok.csv"));
+        //Fuvar objektumokat tároló lista
+        List<Fuvar> fuvarok = new ArrayList<>();
 
+        //Sorok feldolgozása
+        for (String sor : sorok) {
+            //darabolás
+            String[] soradatok = sor.split(";");
+            //megcimkezes
+            String rsz = soradatok[0];
+            int ido = Integer.parseInt(soradatok[1]);
+            double osszeg = Double.parseDouble(soradatok[2]);
+            String fizmod = soradatok[3];
+            //Objektum létrehozása konstruktorral
+            Fuvar fuvar = new Fuvar(rsz, ido, osszeg, fizmod);
+            //listához adás
+            fuvarok.add(fuvar);
+        }
+    
+    
         //összes fuvar értéke
-        osszFuvarErteke(fuvarok);
+        System.out.println(osszFuvarErteke(fuvarok));
         //legdrágább fuvar rendszáma
-        maxFuvarRenszama(fuvarok);
+        System.out.println(maxFuvarRenszama(fuvarok));
         //legolcsóbb fuvar forintban
-        
+        System.out.println(legolcsobbFuvarFt(fuvarok));
         //hány kártyás fizu
         //minden fizetési mód meghatározott
         mindenFizModOk(fuvarok);
@@ -60,47 +48,41 @@ public class Program {
         //hányféle fizetési mód van
         //melyik autó összesen mennyi fuvart teljesített
         
-
+}
     
         
-        public int osszFuvarErteke(ArrayList fuvarok) {
-            int osszes=0;
-            int i=0;
-            while (i < fuvarok.size()) {
-                osszes += fuvarok.ossz;
-                i++;
-            }
-        return osszes;
+    public static double osszFuvarErteke(List<Fuvar> fuvarok) {
+        double osszErtek=0;
+        //int i=0; while(i<fuvarok.size()){ osszErtek+=fuvarok.get(i).getOsszeg(); i++; } --> List, nem tömb!!! no[i]!!!           
+        for (Fuvar f : fuvarok) {
+            osszErtek += f.getOsszeg();
+        }
+        return osszErtek;
         }
        
-        public String maxFuvarRenszama(ArrayList fuvarok) {
-            String maxRsz = "";
-            int maxFuvar = 0;
-            for (int i = 0; i < fuvarok.size(); i++) {
-                if (fuvarok.get(i).ido > maxFuvar){
-                    maxFuvar = fuvarok.get(i).ido;
-                    maxRsz = fuvarok.get(i).rsz;
-                    }
+    public static String maxFuvarRenszama(List<Fuvar> fuvarok) {
+        String maxRsz = "";
+        int maxFuvar = 0;
+        for (Fuvar f : fuvarok) {       
+            if (f.getIdo()>maxFuvar){
+                maxFuvar = f.getIdo();
+                maxRsz = f.getRsz();
             }
-
+        }
         return maxRsz;
     }
         
-        public double legolcsobbFuvarFt(ArrayList fuvarok) {
-            double maxOssz = 0;
-            for (int i = 0; i < fuvarok.size; i++) {
-                if (fuvarok.get(i).ossz > maxOssz){
-                    maxOssz = fuvarok.get(i).ossz;
-                    }
+    public double legolcsobbFuvarFt(List<Fuvar> fuvarok) {
+        double min = fuvarok.get(0).getOsszeg();
+
+        for (Fuvar f : fuvarok) {
+            if (f.getOsszeg() < min) {
+                min = f.getOsszeg();
             }
-            double minOssz = maxOssz;
-            for (int i = 0; i < fuvarok.size(); i++) {
-                if (fuvarok.get(i).ossz < minOssz){
-                    minOssz = fuvarok.get(i).ossz;
-                    }
-            }
-        return minOssz*400;
+        }
+        return min * 400;
     }
+
     //4
         public int hanyKartyas(ArrayList fuvarok) {
             int hanyKartya = 0;
