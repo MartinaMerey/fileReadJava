@@ -36,25 +36,25 @@ public class Program {
             fuvarok.add(fuvar);
         }
     
-    
-        //összes fuvar értéke
-        System.out.println(osszFuvarErteke(fuvarok));
-        //legdrágább fuvar rendszáma
-        System.out.println(maxFuvarRenszama(fuvarok));
-        //legolcsóbb fuvar forintban
-        System.out.println(legolcsobbFuvarFt(fuvarok));
-        //hány kártyás fizu
-        System.out.println(hanyKartyas(fuvarok));
-        //minden fizetési mód meghatározott
-        System.out.println(mindenFizModOk(fuvarok));
-        //hány darab autó van a rendszerben
-        System.out.println(hanyDbAuto(fuvarok));
-        //hányféle fizetési mód van
-        System.out.println(hanyFizMod(fuvarok));
-        //melyik autó összesen mennyi fuvart teljesített
-        System.out.println(melyikAutoMennyit(fuvarok));
         
-}
+        System.out.println("\u001B[32mösszes fuvar értéke:");
+        kiiras(osszFuvarErteke(fuvarok));
+        System.out.println("\u001B[32mlegdrágább fuvar rendszáma");
+        kiiras(maxFuvarRenszama(fuvarok));
+        System.out.println("\u001B[32mlegolcsóbb fuvar forintban");
+        kiiras(legolcsobbFuvarFt(fuvarok));
+        System.out.println("\u001B[32mhány kártyás fizu");
+        kiiras(hanyKartyas(fuvarok));
+        System.out.println("\u001B[32mminden fizetési mód meghatározott");
+        kiiras(mindenFizModOk(fuvarok));
+        System.out.println("\u001B[32mhány darab autó van a ");
+        kiiras(hanyDbAuto(fuvarok));
+        System.out.println("\u001B[32mhányféle fizetési mód van");
+        kiiras(hanyFizMod(fuvarok));
+        System.out.println("\u001B[32mmelyik autó összesen mennyi fuvart ");
+        kiiras(melyikAutoMennyit(fuvarok));
+        
+    } //psvm
     
     //1      
     public static double osszFuvarErteke(List<Fuvar> fuvarok) {
@@ -169,17 +169,17 @@ public class Program {
             } else {
                 menetekMap.put(rsz, 1);
             }
+        }
+        return menetekMap;
+    }//melyikMennyi
+    
+    private static int feladat = 0;    
+    public static void kiiras (Object adat) {
+        feladat++;
+        System.out.printf("\u001B[32m(%d)   \u001B[30m%s%n", feladat, adat);
+        
+        
     }
 
-        
-    }
-    
-    
-        
-    //-záró vizsga: webes szakdolgozat, elmélet, asztali alkalmas grafikus 3 konzolos valami
-                 
-            
-            
-            
-        
-}
+//-záró vizsga: webes szakdolgozat, elmélet, asztali alkalmas grafikus 3 konzolos valami
+} //class
