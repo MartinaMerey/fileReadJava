@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -46,12 +48,15 @@ public class Program {
         //minden fizetési mód meghatározott
         System.out.println(mindenFizModOk(fuvarok));
         //hány darab autó van a rendszerben
+        System.out.println(hanyDbAuto(fuvarok));
         //hányféle fizetési mód van
+        System.out.println(hanyFizMod(fuvarok));
         //melyik autó összesen mennyi fuvart teljesített
+        System.out.println(melyikAutoMennyit(fuvarok));
         
 }
     
-        
+    //1      
     public static double osszFuvarErteke(List<Fuvar> fuvarok) {
         double osszErtek=0;
         //int i=0; while(i<fuvarok.size()){ osszErtek+=fuvarok.get(i).getOsszeg(); i++; } --> List, nem tömb!!! no[i]!!!           
@@ -60,7 +65,8 @@ public class Program {
         }
         return osszErtek;
         }
-       
+
+    //2
     public static String maxFuvarRenszama(List<Fuvar> fuvarok) {
         String maxRsz = "";
         int maxFuvar = 0;
@@ -72,7 +78,8 @@ public class Program {
         }
         return maxRsz;
     }
-        
+    
+    //3
     public static double legolcsobbFuvarFt(List<Fuvar> fuvarok) {
         double min = fuvarok.get(0).getOsszeg();
 
@@ -107,32 +114,69 @@ public class Program {
         return true;
     }
                 
-        
-        //6
-    /*    public static boolean mindenFizModOk(List<Fuvar> fuvarok) {
-        boolean isMindenOk = true;
-        Set<String> fizModok = new HashSet<>();
+    //6
+    public static int hanyDbAuto(List<Fuvar> fuvarok) {
+        Set<String> autok = new HashSet<>();
         for (Fuvar f : fuvarok) {
-            fizModok.add(f.getFizmod());
+            autok.add(f.getRsz());
         }
-        if (fizModok.size()< fuvarok.size()){
-            return !isMindenOk;
-        }
-        return isMindenOk;
+        return autok.size();  
     }
-       */
-        //8-as hz segítség
-        //kulcs és értékpár (asszociatív tömb PHP-ban)
-        //Map<Diak,List<Integer>>map
-        // map lehet hashmap, treemap
-        //Map<String,Integer>m
-        //<Integer,Integer>
-        //[1]=
-        //["kulcs"]=ertek
+    
+    //7 (fapadosabb osszeszamolas)
+    public static int hanyFizMod(List<Fuvar> fuvarok) {
+        List<String> fizmodok = new ArrayList<>();
+        for (Fuvar f : fuvarok) {
+            if (!fizmodok.contains(f.getFizmod())){
+            fizmodok.add(f.getFizmod());
+            }
+        }
+        return fizmodok.size();   
+    }
+    //még fapadosabb:
+/*  public static int hanyFele(List<Fuvar> fuvarok) {
+        int db = 0;
+        for (int i = 0; i < fuvarok.size(); i++) {
+            boolean voltMar = false;
+            for (int j = 0; j < i; j++) {
+                if (fuvarok.get(i).getAdatTag().equals(fuvarok.get(j).getAdatTag())) {
+                    voltMar = true;
+                    break;
+                }
+            }
+            if (!voltMar) {
+                db++;
+            }
+        }
+        return db;
+    }
+*/
+    //8
+    //-hoz segítség: (0. szintű belépés volt valaha a programozói állásoknál)
+    //kulcs és értékpár (asszociatív tömbnek hívják PHP-ban), kulcs (key) → érték (value)
+    //Map<Diak,List<Integer>>map
+    //map lehet hashmap, treemap
+    //Map<String,Integer> map
+    //<Integer,Integer>
+    //[1]=
+    //["kulcs"]=ertek
+    public static Map<String, Integer> melyikAutoMennyit(List<Fuvar> fuvarok){
+        Map<String, Integer> menetekMap = new HashMap<>();
+        for (Fuvar f : fuvarok) {
+            String rsz = f.getRsz();
+            if (menetekMap.containsKey(rsz)) {
+                menetekMap.put(rsz, menetekMap.get(rsz) + 1);
+            } else {
+                menetekMap.put(rsz, 1);
+            }
+    }
+
         
-        //8-as 0. szintű belépés volt valaha a programozói állásoknaál
+    }
+    
+    
         
-        //-záró vizsga: webes szakdolgozat, elmélet, asztali alkalmas grafikus 3 konzolos valami
+    //-záró vizsga: webes szakdolgozat, elmélet, asztali alkalmas grafikus 3 konzolos valami
                  
             
             
